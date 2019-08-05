@@ -1,5 +1,8 @@
 import netifaces
 import re
+from time import sleep
+
+import requests
 from getpass import getpass
 import pexpect
 
@@ -49,6 +52,32 @@ class Profile:
 
     def disconnect(self):
         pexpect.run(['sudo', 'netctl', 'stop', self.profile_name])
+
+
+def wait_for_connection(address):
+    """
+    Continuously prompts the given address until an 'ok' status has been received.
+    :param address: the address to wait for connection to
+    :return:
+    """
+
+    def get_status(url) -> requests.Response.ok:
+        """
+        Returns the status check 'ok' from given url. 'ok' is defined by Requests as a status code below 400.
+        :param url: the address to access
+        :return: the boolean result of the 'ok'
+        """
+        return requests.get(url).ok
+
+    try:
+        status = get_status(address)
+        while not status:
+            sleep(0.25)
+            status = get_status(address)
+    except requests.exceptions.ConnectionError:
+        print(
+            f"[Error] Looking up: {address} caused an exception. Please check if address is valid and prefixed by the "
+            f"correct protocol. (http/https)://url.tld")
 
 
 def stop_all_profiles() -> None:
@@ -150,3 +179,5 @@ def decode_output(x):
 ret = is_any_profile_active()
 
 print(ret)
+
+wait_for_connection('https://aau234q1gwb.dk')
