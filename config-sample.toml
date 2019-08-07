@@ -1,0 +1,23 @@
+[credentials]
+username = "user"
+password = "passwd"
+
+[network]
+wireless_adapter = "wlp?x?"
+# Networks for which to enable rolling password substitution
+work_networks = ["work"]
+network_manager = "netctl"
+# Choosing your organisations URL is advisable as their CAS may be up, when the broader internet is down
+ping_address = "https://aau.dk"
+
+[macchanger]
+enabled = true
+# Option '-e' keeps vendor-specific bytes
+options = "-e"
+
+[cas]
+cas_password_page = "login.aau.dk"
+
+
+
+
