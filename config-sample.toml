@@ -5,8 +5,7 @@ password = "passwd"
 [network]
 wireless_adapter = "wlp?x?"
 # Networks for which to enable rolling password substitution
-work_networks = ["work"]
-network_manager = "netctl"
+#work_networks = ["work"]
 # Choosing your organisations URL is advisable as their CAS may be up, when the broader internet is down
 ping_address = "https://aau.dk"
 
